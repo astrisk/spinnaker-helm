@@ -26,6 +26,17 @@ Wait until all pods are up
 kubectl get pods --namespace spinnaker
 ```
 
+use nodeIP+nodePort to access ui 
+
+```
+kubectl get svc deck  -n demo -o wide
+
+NAME      CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE       SELECTOR
+deck      10.254.135.35   <nodes>       80:34832/TCP   37m       app=deck,tier=deck
+
+```
+the ui url is: http://nodeip+34832
+
 Forward port 9000 to deck pod.
 ```
 kubectl --namespace spinnaker port-forward (kubectl --namespace spinnaker get pods -l app=deck -o jsonpath='{.items[*].metadata.name}') 9000:9000
